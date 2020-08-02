@@ -5,6 +5,7 @@ import cv2
 # events = [i for i in dir(cv2) if 'EVENT' in i]
 # print(events)
 
+# Display coords and BGR values
 def click_event(event, x, y, flags, params):
     # if left click pressed
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -26,6 +27,7 @@ def click_event(event, x, y, flags, params):
         cv2.imshow("image", img)
 
 
+# Create small circle and create a line between two circles
 def click_event2(event, x, y, flags, params):
     # if left click pressed
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -43,12 +45,27 @@ def click_event2(event, x, y, flags, params):
         cv2.imshow('image', img)
 
 
+# Open Window displaying BGR value that was selected
+def click_event3(event, x, y, flags, params):
+    # if left click pressed
+    if event == cv2.EVENT_LBUTTONDOWN:
+        blue = img[x, y, 0]
+        green = img[x, y, 1]
+        red = img[x, y, 2]
+        cv2.circle(img, (x, y), 3, (0, 0, 255), -1)
+        mycolourImage = np.zeros((512, 512, 3), np.uint8)
+
+        mycolourImage[:] = [blue, green, red]
+
+        cv2.imshow('colour', mycolourImage)
+
+
 # img = np.zeros((512, 512, 3), np.uint8)
 img = cv2.imread("lena_Copy.png")
 cv2.imshow('image', img)
 points = []
 
-cv2.setMouseCallback('image', click_event2)
+cv2.setMouseCallback('image', click_event3)
 cv2.waitKey()
 cv2.destroyAllWindows()
 
